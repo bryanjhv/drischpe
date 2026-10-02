@@ -3,6 +3,10 @@
 import antfu from '@antfu/eslint-config'
 
 export default antfu({
+	ignores: [
+		'data',
+		'public/schools.json',
+	],
 	formatters: true,
 	stylistic: {
 		indent: 'tab',
