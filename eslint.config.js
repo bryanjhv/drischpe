@@ -7,4 +7,10 @@ export default antfu({
 	stylistic: {
 		indent: 'tab',
 	},
+	typescript: {
+		tsconfigPath: './tsconfig.json',
+		overridesTypeAware: {
+			'ts/strict-boolean-expressions': 'off',
+		},
+	},
 })

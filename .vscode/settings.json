@@ -44,6 +44,8 @@
 		"xml",
 		"yaml"
 	],
+	"js/ts.tsc.autoDetect": "off",
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
 	"npm.packageManager": "npm",
 	"prettier.enable": false
 }
