@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Escuelas de Conducir</title>
+		<link rel="icon" href="https://bryanjhv.com/favicon.ico" />
+		<link rel="stylesheet" href="./src/styles.css" />
+	</head>
+	<body x-data="app">
+		<header>
+			<p>Escuelas de Conducir</p>
+			<div>
+				<p><strong x-text="filteredSchools().length"></strong> de <strong x-text="schools.length"></strong> en ruta</p>
+				<p x-show="updatedAt">Datos actualizados: <time x-text="updatedAt"></time></p>
+			</div>
+		</header>
+		<main>
+			<aside>
+				<p>Ubicación</p>
+				<p>Marca cualquier casilla para incluir o quitar toda su rama de una vez.</p>
+				<ul>
+					<li>
+						<details open>
+							<summary>
+								<label @click.stop>
+									<input
+										type="checkbox"
+										:checked="nodeState(leaves(tree)) === 'checked'"
+										x-effect="$el.indeterminate = nodeState(leaves(tree)) === 'indeterminate'"
+										@change="toggleNode(leaves(tree))"
+									/>
+									<span>PERU</span>
+								</label>
+							</summary>
+							<ul>
+								<template x-for="dept in tree" :key="dept.n">
+									<li>
+										<details>
+											<summary>
+												<label @click.stop>
+													<input
+														type="checkbox"
+														:checked="nodeState(leaves(dept.k)) === 'checked'"
+														x-effect="$el.indeterminate = nodeState(leaves(dept.k)) === 'indeterminate'"
+														@change="toggleNode(leaves(dept.k))"
+													/>
+													<span x-text="dept.n"></span>
+												</label>
+											</summary>
+											<ul>
+												<template x-for="prov in dept.k" :key="prov.n">
+													<li>
+														<details>
+															<summary>
+																<label @click.stop>
+																	<input
+																		type="checkbox"
+																		:checked="nodeState(leaves(prov.k)) === 'checked'"
+																		x-effect="$el.indeterminate = nodeState(leaves(prov.k)) === 'indeterminate'"
+																		@change="toggleNode(leaves(prov.k))"
+																	/>
+																	<span x-text="prov.n"></span>
+																</label>
+															</summary>
+															<ul>
+																<template x-for="dist in prov.k" :key="dist.u">
+																	<li>
+																		<label>
+																			<input type="checkbox" :value="dist.u" x-model="selectedDists" />
+																			<span x-text="dist.n"></span>
+																		</label>
+																	</li>
+																</template>
+															</ul>
+														</details>
+													</li>
+												</template>
+											</ul>
+										</details>
+									</li>
+								</template>
+							</ul>
+						</details>
+					</li>
+				</ul>
+			</aside>
+			<section>
+				<ul>
+					<template x-for="school in filteredSchools()" :key="`${school.r}::${school.a}`">
+						<li :data-located="!!school.p">
+							<strong x-text="school.n"></strong>
+							<div x-text="school.a"></div>
+							<div x-text="places.get(school.u)"></div>
+							<footer>
+								<span x-text="school.r"></span>
+								<a
+									:href="mapsUrl(school)"
+									x-text="school.p ? 'Ver en mapa' : 'Ubicación pendiente — buscar en Google Maps'"
+									target="_blank"
+									rel="noopener"
+								></a>
+							</footer>
+						</li>
+					</template>
+				</ul>
+			</section>
+			<div x-ref="map"></div>
+		</main>
+		<script type="module" src="./src/main.ts"></script>
+	</body>
+</html>

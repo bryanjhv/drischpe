@@ -1,5 +1,5 @@
+import type { GeoNode } from '../../src/schema.ts'
 import type { SourceRecord } from './records.ts'
-import type { GeoNode } from './schema.ts'
 
 const GEO_LEVELS = ['department', 'province', 'district'] as const satisfies readonly (keyof SourceRecord)[]
 type GeoLevel = (typeof GEO_LEVELS)[number]

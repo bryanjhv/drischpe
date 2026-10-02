@@ -1,12 +1,12 @@
-import type { School } from './lib/schema.ts'
+import type { School } from '../src/schema.ts'
 import { unlink, writeFile } from 'node:fs/promises'
 import process from 'node:process'
+import { SchoolsDataSchema } from '../src/schema.ts'
 import { assertSaneDiff, diffRecords } from './lib/diff.ts'
 import { buildGeo } from './lib/geo.ts'
 import { readGeocodes, writeGeocodes } from './lib/geocodes.ts'
 import { PATHS, readJsonl } from './lib/io.ts'
 import { keyOf, keyRecords, readRecords, writeRecords } from './lib/records.ts'
-import { SchoolsDataSchema } from './lib/schema.ts'
 
 const previousRaw = await readRecords(PATHS.schools)
 const raw = await readRecords(PATHS.next)

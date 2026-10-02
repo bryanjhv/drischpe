@@ -1,0 +1,250 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	background: #eef0e5;
+	color: #21242b;
+	font-family:
+		system-ui,
+		-apple-system,
+		'Segoe UI',
+		Roboto,
+		Helvetica,
+		Arial,
+		sans-serif;
+}
+
+a {
+	color: #8a5e10;
+}
+
+p,
+ul {
+	margin: 0;
+}
+
+ul {
+	list-style: none;
+}
+
+:focus-visible {
+	outline: 2px solid #e2a335;
+	outline-offset: 2px;
+}
+
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
+	padding: 0.75rem 1rem;
+	background: #1c1f24;
+	border-bottom: 3px solid #e2a335;
+	color: #f7f8f1;
+}
+
+header > p {
+	font-weight: 800;
+	font-size: 1.3rem;
+	letter-spacing: 0.01em;
+}
+
+header div {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 0.15rem;
+}
+
+header div p {
+	font-size: 0.85rem;
+	color: #c8cdbc;
+}
+
+header strong {
+	color: #e2a335;
+	font-weight: 700;
+}
+
+header div p + p {
+	font-size: 0.75rem;
+	color: #8b9080;
+}
+
+main {
+	flex: 1;
+	display: grid;
+	grid-template-columns: 19rem 25rem 1fr;
+	min-height: 0;
+}
+
+aside,
+section {
+	overflow-y: auto;
+	border-right: 1px solid #d6d9c7;
+}
+
+aside p:first-child {
+	position: sticky;
+	top: 0;
+	background: #eef0e5;
+	padding: 0.75rem 1rem 0.25rem;
+	font-weight: 600;
+	font-size: 0.85rem;
+}
+
+aside p + p {
+	padding: 0.5rem 1rem;
+	color: #565a52;
+	font-size: 0.78rem;
+}
+
+aside > ul {
+	padding: 0 1rem 0.75rem;
+}
+
+section ul {
+	padding: 0.75rem 1rem;
+}
+
+aside ul ul {
+	margin-left: 0.55rem;
+	padding: 0 0 0 0.85rem;
+	border-left: 1px dashed #d6d9c7;
+}
+
+/* Leaf district rows have no chevron, so they'd otherwise land almost
+   under their parent's checkbox — this reserves the same chevron width
+   a summary row gets implicitly. */
+aside li:has(> label) {
+	display: flex;
+	align-items: center;
+	padding: 0.25rem 0 0.25rem 1rem;
+}
+
+summary {
+	display: flex;
+	align-items: center;
+	padding: 0.25rem 0;
+	cursor: pointer;
+	list-style: none;
+}
+
+summary::-webkit-details-marker {
+	display: none;
+}
+
+summary::before {
+	content: '▸';
+	display: inline-block;
+	width: 1rem;
+	flex: none;
+	color: #565a52;
+	font-size: 0.85rem;
+}
+
+details[open] > summary::before {
+	content: '▾';
+}
+
+summary:hover::before {
+	color: #8a5e10;
+}
+
+label {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	cursor: pointer;
+	font-size: 0.85rem;
+}
+
+input {
+	accent-color: #e2a335;
+	width: 1rem;
+	height: 1rem;
+	cursor: pointer;
+}
+
+section li {
+	background: #f7f8f1;
+	border-left: 3px solid #e2a335;
+	padding: 0.25rem 0 0.25rem 0.75rem;
+}
+
+li[data-located] {
+	border-left-color: #31603f;
+}
+
+section li + li {
+	margin-top: 0.6rem;
+	padding-top: 0.6rem;
+	border-top: 1px dashed #d6d9c7;
+}
+
+section strong {
+	font-size: 0.95rem;
+	font-weight: 600;
+}
+
+li > div {
+	color: #565a52;
+	font-size: 0.85rem;
+	margin-top: 0.25rem;
+}
+
+li > div + div {
+	font-size: 0.78rem;
+}
+
+footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+}
+
+footer span {
+	font-family: ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
+	font-size: 0.7rem;
+	color: #565a52;
+	letter-spacing: 0.02em;
+}
+
+footer a {
+	font-size: 0.78rem;
+}
+
+main > div {
+	min-height: 0;
+}
+
+@media (max-width: 900px) {
+	main {
+		grid-template-columns: 1fr;
+		overflow-y: auto;
+	}
+
+	aside,
+	section {
+		overflow-y: visible;
+		border-right: none;
+		border-bottom: 1px solid #d6d9c7;
+	}
+
+	main > div {
+		height: 70vh;
+	}
+}
