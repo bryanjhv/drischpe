@@ -1,0 +1,41 @@
+name: Pull MTC data
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pull-data
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - run: npm ci
+
+      - run: npm run pull-data
+        env:
+          MTC_API_URL: ${{ vars.MTC_API_URL }}
+
+      - name: Commit updated data if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/schools.json data/schools.jsonl data/geocodes.jsonl
+          if git diff --staged --quiet; then
+            echo "No data changes"
+          else
+            git commit -m 'chore: update schools.json'
+            git push
+          fi
