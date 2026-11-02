@@ -1,6 +1,7 @@
 import type { GeoNode, School, SchoolsData } from './schema'
 import type { RollupState } from './tree'
 import Alpine from 'alpinejs'
+import { restoreSelection, saveSelection } from './selection'
 import { leaves, placeNames, rollupState } from './tree'
 import { mapsUrl } from './url'
 
@@ -32,10 +33,13 @@ Alpine.data<App, never>('app', () => ({
 			this.tree = g
 			this.places = placeNames(g)
 			this.schools = s
-			this.selectedDists = leaves(g)
+			this.selectedDists = restoreSelection(g)
 			this.updatedAt = new Intl.DateTimeFormat('es-PE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'America/Lima' }).format(new Date(t))
 		})
-		this.$watch('selectedDists', () => void updateMarkers.then(update => update(this.filteredSchools())))
+		this.$watch('selectedDists', () => {
+			void updateMarkers.then(update => update(this.filteredSchools()))
+			saveSelection(this.tree, this.selectedDists)
+		})
 	},
 	nodeState(districts) {
 		return rollupState(this.selectedDists, districts)
