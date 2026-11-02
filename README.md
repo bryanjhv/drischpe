@@ -2,7 +2,7 @@
 
 DriSchPE (Driving Schools PE) is an interactive map of Peru's licensed driving schools, built from the public registry of the Ministry of Transport and Communications (MTC). Schools can be filtered by department, province and district, and each one links out to Google Maps. The UI is in Spanish.
 
-The site is fully static: a scheduled job pulls the registry, normalizes it into a single JSON file, and the frontend loads that file at runtime.
+The site is fully static: a script pulls the registry and normalizes it into a single JSON file, and the frontend loads that file at runtime.
 
 ## Getting started
 
@@ -40,7 +40,7 @@ Source: the MTC driving school registry query endpoint, paged and validated with
 npm run pull-data
 ```
 
-A GitHub Actions workflow (`.github/workflows/pull-data.yml`) does the same every day at 07:00 UTC and commits any changes. The timestamp in `schools.json` is when the data last changed, not when it was pulled: a run that changes nothing leaves the file untouched, so there is nothing to commit.
+A GitHub Actions workflow (`.github/workflows/pull-data.yml`) does the same every day at 07:00 UTC and commits any changes, but it is **currently disabled**: the MTC server answers 403 to GitHub-hosted runners (it only seems to accept Peruvian IPs). Until that is solved, run the pull locally and commit the result by hand. The timestamp in `schools.json` is when the data last changed, not when it was pulled: a run that changes nothing leaves the file untouched, so there is nothing to commit.
 
 `build-data.ts` refuses to publish if more than 20% of branches look removed, since that usually means a bad pull rather than reality. It prints a summary (added, removed, never geocoded, pruned geocodes) and appends it to the GitHub step summary when running in CI.
 
