@@ -34,7 +34,7 @@ Alpine.data<App, never>('app', () => ({
 			this.places = placeNames(g)
 			this.schools = s
 			this.selectedDists = restoreSelection(g)
-			this.updatedAt = new Intl.DateTimeFormat('es-PE', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'America/Lima' }).format(new Date(t))
+			this.updatedAt = new Intl.DateTimeFormat('es-PE', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(t))
 		})
 		this.$watch('selectedDists', () => {
 			void updateMarkers.then(update => update(this.filteredSchools()))
