@@ -37,15 +37,29 @@ function match(nodes: GeoNode[], wanted: Set<string>, parents = ''): string[] {
 // Last loaded or saved text: only user changes save, so a shared link can't overwrite this browser's selection.
 let baseline: string | undefined
 
+function setUrl(text: string | null) {
+	const url = new URL(location.href)
+	if (text === null)
+		url.searchParams.delete(KEY)
+	else
+		url.searchParams.set(KEY, text)
+	history.replaceState(null, '', url)
+}
+
 export function restoreSelection(tree: GeoNode[]) {
-	let saved = new URLSearchParams(location.search).get(KEY)
+	const fromUrl = new URLSearchParams(location.search).get(KEY)
+	let saved = fromUrl
 	try {
 		saved ??= localStorage.getItem(KEY)
 	}
 	catch {}
+	const all = leaves(tree)
 	const matched = match(tree, new Set(saved?.match(/.{3}/g)))
-	const selected = matched.length || saved === '' ? matched : leaves(tree)
+	const selected = matched.length || saved === '' ? matched : all
 	baseline = encode(tree, selected)
+	// Storage to URL only, so the address bar matches what is shown.
+	if (fromUrl === null && selected.length < all.length)
+		setUrl(baseline)
 	return selected
 }
 
@@ -56,18 +70,13 @@ export function saveSelection(tree: GeoNode[], selected: string[]) {
 	baseline = text
 	// All selected is the default: leave no trace so new places show up.
 	const all = selected.length === leaves(tree).length
-	const url = new URL(location.href)
 	// Storage first: replaceState throws in Safari after ~100 calls in 30s.
 	try {
-		if (all) {
-			url.searchParams.delete(KEY)
+		if (all)
 			localStorage.removeItem(KEY)
-		}
-		else {
-			url.searchParams.set(KEY, text)
+		else
 			localStorage.setItem(KEY, text)
-		}
-		history.replaceState(null, '', url)
+		setUrl(all ? null : text)
 	}
 	catch {}
 }
