@@ -1,6 +1,6 @@
 # DriSchPE
 
-DriSchPE (Driving Schools PE) is an interactive map of Peru's licensed driving schools, built from the public registry of the Ministry of Transport and Communications (MTC). Schools can be filtered by department, province and district, and each one links out to Google Maps. The UI is in Spanish.
+DriSchPE (Driving Schools PE) is an interactive map of Peru's licensed driving schools, built from the public registry of the Ministry of Transport and Communications (MTC). It is an unofficial project, not affiliated with or endorsed by MTC. Schools can be filtered by department, province and district, and each one links out to Google Maps. The UI is in Spanish.
 
 The site is fully static: a script pulls the registry and normalizes it into a single JSON file, and the frontend loads that file at runtime.
 
