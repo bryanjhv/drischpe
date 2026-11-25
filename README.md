@@ -40,7 +40,7 @@ Source: the MTC driving school registry query endpoint, paged and validated with
 npm run pull-data
 ```
 
-A GitHub Actions workflow (`.github/workflows/pull-data.yml`) does the same every day at 07:00 UTC and commits any changes, but it is **currently disabled**: the MTC server answers 403 to GitHub-hosted runners (it only seems to accept Peruvian IPs). Until that is solved, run the pull locally and commit the result by hand. The timestamp in `schools.json` is when the data last changed, not when it was pulled: a run that changes nothing leaves the file untouched, so there is nothing to commit.
+A GitHub Actions workflow (`.github/workflows/pull-data.yml`) does the same every day at 07:00 UTC and commits any changes. The MTC server answers 403 to GitHub-hosted runners (it only seems to accept Peruvian IPs), so the `MTC_API_URL` secret points to a proxy. The timestamp in `schools.json` is when the data last changed, not when it was pulled: a run that changes nothing leaves the file untouched, so there is nothing to commit.
 
 `build-data.ts` refuses to publish if more than 20% of branches look removed, since that usually means a bad pull rather than reality. It prints a summary (added, removed, never geocoded, pruned geocodes) and appends it to the GitHub step summary when running in CI.
 
