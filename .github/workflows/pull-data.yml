@@ -26,7 +26,7 @@ jobs:
 
       - run: npm run pull-data
         env:
-          MTC_API_URL: ${{ vars.MTC_API_URL }}
+          MTC_API_URL: ${{ secrets.MTC_API_URL }}
 
       - name: Commit updated data if changed
         run: |

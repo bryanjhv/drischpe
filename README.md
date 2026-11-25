@@ -32,7 +32,7 @@ MTC API ──pull-mtc.ts──▶ data/schools-next.jsonl
 | `data/geocodes.jsonl`     | Manual coordinates, append-only, keyed by branch; removed branches pruned. |
 | `public/schools.json`     | What the app loads. Generated, do not edit by hand.                        |
 
-Source: the MTC driving school registry query endpoint, paged and validated with zod. Its URL comes from the `MTC_API_URL` env var (`{}` is replaced with the encoded page query); copy `.env.example` to `.env` before `npm run pull-data`. In CI, set it as a repository variable.
+Source: the MTC driving school registry query endpoint, paged and validated with zod. Its URL comes from the `MTC_API_URL` env var (`{}` is replaced with the encoded page query); copy `.env.example` to `.env` before `npm run pull-data`. In CI, set it as a repository secret.
 
 ### Updating the data
 
