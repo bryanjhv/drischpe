@@ -63,3 +63,7 @@ A branch is identified by a short hash of all its fields (`keyOf`). Any change t
 ## Frontend
 
 Vite, Alpine.js and Leaflet, with no UI framework, in `src/`. The keys in `public/schools.json` are deliberately short to keep the payload small; see the zod schemas in `src/schema.ts`.
+
+## License
+
+The code is licensed under [AGPL-3.0-or-later](LICENSE.txt). The registry data in `data/` and `public/schools.json` comes from MTC, and its coordinates and place IDs from Google; neither is covered by this license.
